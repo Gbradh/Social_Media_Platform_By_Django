@@ -1,0 +1,29 @@
+{% extends "posts/post_base.html" %}
+
+{% load bootstrap4 %}
+{% block post_content %}
+<br>
+<div class="columns is-mobile">
+  <div class="column is-half is-offset-one-quarter">
+    <div class="card">
+      <div class="card-content">
+				<h4 class="title is-3">Debate</h4>
+				<form method="POST" action="{% url 'posts:create' %}" id="postForm">
+					{% csrf_token %}
+					{% bootstrap_form form %}
+					<button type="submit" class="btn button is-danger is-large">
+						<span style="margin-right:5px;" class="material-icons">local_fire_department</span>
+						Heat
+					</button>
+
+					<a style=" float:right; margin:0px 10px 10px 0px;" href="{% url 'groups:all' %}" class="btn button is-warning is-large">
+						<span style="margin-right:5px;" class="material-icons">close</span>
+						Cancel
+          </a>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<br><br><br>
+{% endblock %}

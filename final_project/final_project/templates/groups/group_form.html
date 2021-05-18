@@ -1,0 +1,27 @@
+{% extends "groups/group_base.html" %}
+{% load bootstrap4 %}
+{% block group_content %}
+<br><br>
+<div class="columns is-centered">
+  <div class="column is-half">
+    <div class="card">
+      <div class="card-content">
+      <h4 class="title is-3">Create a New Group!</h4><hr>
+      <form id="groupForm" action="{% url 'groups:create' %}" method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        	<button type="submit" class="button is-info">
+            <span style="margin-right:5px;" class="material-icons">create</span>
+            Create
+          </button>
+          <a style="float:right;" href="{% url 'index' %}" class="btn button is-danger">
+            <span style="margin-right:5px;" class="material-icons">close</span>
+            Cancel
+          </a>
+      	</form>
+      </div>
+    </div>
+  </div>
+</div>
+<br><br>
+{% endblock %}

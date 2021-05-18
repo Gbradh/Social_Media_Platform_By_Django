@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% load static %}
+{% block banner %}
+  <section style="margin-left:2px; margin-right:2px;" class="hero loader_1">
+    <div class="hero-body">
+      <center>
+        <p class="title">
+          #{{ tag.title }}
+        </p>
+      </center>
+    </div>
+  </section>
+{% endblock %}
+{% block content %}
+<br><br>
+  <div class="columns is-multiline">
+    {% for post in posts %}
+    {% for cont in post.content.all %}
+    <div class="column">
+      <center>
+        {% if cont.file.name|slice:"-4:" == 'apng' or cont.file.name|slice:"-4:" == 'aPNG' %}
+        <figure class="image">
+          <a href="{{ post.get_absolute_url }}">
+            <img src="{{ cont.file.url }}" type="image/apng" alt="Placeholder image">
+          </a>
+        </figure>
+        {% elif cont.file.name|slice:"-4:" == 'avif' or cont.file.name|slice:"-4:" == 'aVIF'%}
+        <figure class="image">
+          <a href="{{ post.get_absolute_url }}">
+            <img src="{{ cont.file.url }}" type="image/avif" alt="Placeholder image">
+          </a>
+        </figure>
+        {% elif cont.file.name|slice:"-3:" == 'gif' or cont.file.name|slice:"-3:" == 'GIF' %}
+        <figure class="image">
+          <a href="{{ post.get_absolute_url }}">
+            <img src="{{ cont.file.url }}" type="image/gif" alt="Placeholder image">
+          </a>
+        </figure>
+        {% elif cont.file.name|slice:"-3:" == 'jpg' or cont.file.name|slice:"-4:" == 'jpeg' or cont.file.name|slice:"-4:" == 'jfif' or cont.file.name|slice:"-5:" == 'pjpeg' or cont.file.name|slice:"-3:" == 'pjp' %}
+        <figure class="image">
+          <a href="{{ post.get_absolute_url }}">
+            <img src="{{ cont.file.url }}" type="image/jpeg" alt="Placeholder image">
+          </a>
+        </figure>
+        {% elif cont.file.name|slice:"-3:" == 'JPG' or cont.file.name|slice:"-4:" == 'JPEG' or cont.file.name|slice:"-4:" == 'JFIF' or cont.file.name|slice:"-5:" == 'pJPEG' or cont.file.name|slice:"-3:" == 'pJP' %}
+        <a href="{{ post.get_absolute_url }}">
+          <img src="{{ cont.file.url }}" type="image/jpeg" alt="Placeholder image">
+        </a>
+        {% elif cont.file.name|slice:"-3:" == 'png' or cont.file.name|slice:"-3:" == 'PNG' %}
+        <figure class="image">
+          <a href="{{ post.get_absolute_url }}">
+            <img src="{{ cont.file.url }}" type="image/png" alt="Placeholder image">
+          </a>
+        </figure>
+        {% elif cont.file.name|slice:"-3:" == 'svg' or cont.file.name|slice:"-3:" == 'SVG' %}
+        <figure class="image">
+          <a href="{{ post.get_absolute_url }}">
+            <img src="{{ cont.file.url }}" type="image/svg+xml" alt="Placeholder image">
+          </a>
+        </figure>
+        {% elif cont.file.name|slice:"-4:" == 'webp' or cont.file.name|slice:"-4:" == 'WebP' %}
+        <figure class="image">
+          <a href="{{ post.get_absolute_url }}">
+            <img src="{{ cont.file.url }}" type="image/webp" alt="Placeholder image">
+          </a>
+        </figure>
+        {% elif cont.file.name|slice:"-3:" == 'bmp' or cont.file.name|slice:"-3:" == 'BMP' %}
+        <figure class="image">
+          <a href="{{ post.get_absolute_url }}">
+            <img src="{{ cont.file.url }}" type="image/bmp" alt="Placeholder image">
+          </a>
+        </figure>
+        {% elif cont.file.name|slice:"-3:" == 'ico' or cont.file.name|slice:"-3:" == 'ICO' or cont.file.name|slice:"-3:" == 'cur' or cont.file.name|slice:"-3:" == 'CUR' %}
+        <figure class="image">
+          <a href="{{ post.get_absolute_url }}">
+            <img src="{{ cont.file.url }}" type="image/x-icon" alt="Placeholder image">
+          </a>
+        </figure>
+        {% elif cont.file.name|slice:"-3:" == 'tif' or cont.file.name|slice:"-3:" == 'TIF' or cont.file.name|slice:"-4:" == 'tiff' or cont.file.name|slice:"-4:" == 'TIFF' %}
+        <figure class="image">
+          <a href="{{ post.get_absolute_url }}">
+            <img src="{{ cont.file.url }}" type="image/webp" alt="Placeholder image">
+          </a>
+        </figure>
+        {% elif cont.file.name|slice:"-4:" == 'webm' or cont.file.name|slice:"-4:" == 'WebM' %}
+        <video href="{{ post.get_absolute_url }}" controls="controls" preload="metadata">
+          <source src="{{ cont.file.url }}#t=0.5" type="video/webm">
+        </video>
+        {% elif cont.file.name|slice:"-3:" == 'mp4' or cont.file.name|slice:"-3:" == 'MP4' %}\
+        <video href="{{ post.get_absolute_url }}" controls="controls" preload="metadata">
+          <source src="{{ cont.file.url }}#t=0.5" type="video/mp4">
+        </video>
+        {% elif cont.file.name|slice:"-3:" == 'ogg' or cont.file.name|slice:"-3:" == 'Ogg' %}
+        <video href="{{ post.get_absolute_url }}" controls="controls" preload="metadata">
+          <source src="{{ cont.file.url }}#t=0.5" type="video/ogg">
+        </video>
+        {% elif cont.file.name|slice:"-3:" == 'mp3' or cont.file.name|slice:"-3:" == 'MP3' or cont.file.name|slice:"-3:" == 'mpeg' or cont.file.name|slice:"-3:" == 'MpeG' %}
+        <!-- <img src="{% static 'img/default/music_icon.jpg' %}" alt="Placeholder image"> -->
+        <audio href="{{ post.get_absolute_url }}" controls="controls" preload="metadata">
+          <source src="{{ cont.file.url }}#t=0.5" type="audio/mpeg">
+        </audio>
+        {% elif cont.file.name|slice:"-4:" == 'wav' or cont.file.name|slice:"-4:" == 'wav' %}
+        <!-- <img src="{% static 'img/default/music_icon.jpg' %}" alt="Placeholder image"> -->
+        <audio href="{{ post.get_absolute_url }}" controls="controls" preload="metadata">
+          <source src="{{ cont.file.url }}#t=0.5" type="audio/wav">
+        </audio>
+        {% elif cont.file.name|slice:"-4:" == 'ogg' or cont.file.name|slice:"-4:" == 'Ogg' %}
+        <!-- <img src="{% static 'img/default/music_icon.jpg' %}" alt="Placeholder image"> -->
+        <audio href="{{ post.get_absolute_url }}" controls="controls" preload="metadata">
+          <source src="{{ cont.file.url }}#t=0.5" type="audio/ogg">
+        </audio>
+        {% else %}
+        <figure class="image">
+          <a href="{{ post.get_absolute_url }}" class="btn btn-danger" download="{{ cont.file.url }}">
+            <img src="{% static 'img/default/document_icon.jpg' %}" alt="Placeholder image">
+            <strong>$Download</strong>
+          </a>
+        </figure>
+        {% endif %}
+      </center>
+    </div>
+    {% endfor %}
+    {% endfor %}
+  </div>
+  <br><br><br><br><br>
+  <br><br><br><br><br>
+  <br><br><br><br><br>
+{% endblock %}

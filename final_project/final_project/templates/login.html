@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<br><br>
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-half">
+            <div class="card loader_1">
+              <div class="card-content">
+                <form method="post" action="" role="form">
+                  {% csrf_token %}
+                  <h3 class="title is-3">Login</h3><hr>
+
+                  <div class="field">
+                    <p class="control has-icons-left">
+                      <label class="label is-medium">Username</label>
+                      {{ form.username }}
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-lock"></i>
+                      </span>
+                    </p>
+                  </div>
+
+                  <div class="field">
+                    <p class="control has-icons-left">
+                      <label class="label is-medium">Password</label>
+                      {{ form.password }}
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-lock"></i>
+                      </span>
+                    </p>
+                  </div>
+
+                  {% if form.errors %}
+                  <div class="row">
+                    <div class="col s12">
+                      <span style="color: red; font-weight: bold;">Your username or password did not match.</span>
+                    </div>
+                  </div>
+                  {% endif %}
+
+                  <div class="field">
+                    <p class="control">
+                      <button type="submit" value="login" class="button is-black is-medium">
+                        <span style="margin-right:5px;" class="material-icons">login</span>
+                      Login
+                      </button>
+                    </p>
+                  </div>
+
+                  <input type="hidden" name="next" value="{{ next }}">
+                  <a href="{% url 'signup' %}" class="btn button is-dark is-medium">
+                    <span style="margin-right:5px;" class="material-icons">add_circle</span>
+                    New account
+                  </a>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+<br><br><br><br><br><br>
+{% endblock %}

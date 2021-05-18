@@ -1,0 +1,33 @@
+<div class="column">
+	  <div class="box">
+	    <article class="media">
+	      <div class="media-auto">
+					<h3 class="mr-5 title is-3">
+						<strong>
+							<a href="{% url 'posts:for_user' username=post.user.username %}">@{{ post.user.username }}</a>
+						</strong>
+					</h3>
+
+					<div class="media-body">
+						<h3 class="title is-4"><strong>{{ post.title|safe }}</strong></h3>
+						<p class="title is-5">{{ post.message_html|safe }}</p>
+						<br>
+							<time class="time"><a href="{% url 'posts:single' username=post.user.username pk=post.pk %}">{{ post.created_at }}</a></time>
+							{% if post.group %}
+								<span class="group-name">in <a href="#">{{ post.group.name }}</a></span>
+							{% endif %}
+
+						<div class="media-footer">
+							<br>
+							{% if user.is_authenticated and post.user == user and not hide_delete %}
+								<a href="{% url 'posts:delete' pk=post.pk %}" title="delete" class="btn button is-simple">
+									<span class="material-icons text-danger">delete</span>
+									<span class="text-danger">Delete</span>
+								</a>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</article>
+		</div>
+	</div>

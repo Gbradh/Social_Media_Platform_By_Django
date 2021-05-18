@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<br>
+        <div class="columns is-centered">
+          <div class="column is-half ">
+            <div class="card loader_1">
+              <div class="card-content">
+                <form method="post" action="" role="form">
+                  {% csrf_token %}
+                  <h3 class="title is-3">Create an account</h3><hr>
+
+                  <div class="field">
+                    <p class="control has-icons-left">
+                      <label class="label">Username</label>
+                      {{ form.username }}
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-lock"></i>
+                      </span>
+                    </p>
+                  </div>
+
+                  <div class="field">
+                    <p class="control has-icons-left">
+                      <label class="label">Email</label>
+                      {{ form.email }}
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-lock"></i>
+                      </span>
+                    </p>
+                  </div>
+
+                  <div class="field">
+                    <p class="control has-icons-left">
+                      <label class="label">Password</label>
+                      {{ form.password }}
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-lock"></i>
+                      </span>
+                    </p>
+                  </div>
+
+                  <div class="field">
+                    <p class="control has-icons-left">
+                      <label class="label">Confirm password</label>
+                      {{ form.confirm_password }}
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-lock"></i>
+                      </span>
+                    </p>
+                  </div>
+
+                  <div class="row">
+                    <div class="col s12">
+                      <span style="color: red; font-weight: bold;">{{ form.errors }}</span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <p class="control">
+                      <button type="submit" name="action" class="button is-black">
+                        <span style="margin-right:5px;" class="material-icons">add_circle_outline</span>
+                        Sign Up
+                      </button>
+                      <a href="{% url 'login' %}" style="float:right;" class="btn button is-dark">
+                        <span style="margin-right:5px;" class="material-icons">close</span>
+                        Cancel
+                      </a>
+                    </p>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+{% endblock %}>

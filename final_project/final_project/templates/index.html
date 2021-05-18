@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+
+  <div style="overflow-x: auto; overflow-y: hidden;" class="columns">
+    {% for story in stories %}
+    <div style="padding-right: 10px;">
+      <a name="{{ story.id }}" class="btn showModal media-content">
+        <figure class="image is-128x128">
+          {% if story.following.profile.picture %}
+            <img class="is-rounded" src="{{ story.following.profile.picture.url }}" alt="Placeholder image">
+          {% else %}
+            <img class="is-rounded" src="{% static 'img/default/default.jpg' %}">
+          {% endif %}
+        </figure>
+        <p style="margin-top: 4px; margin-left: 10px; font-weight: bold;" >
+          <strong>@{{ story.following.username }}</strong>
+        </p>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p id="storiestitle" style="font-weight:bold;" class="modal-card-title">
+          <strong>Stories</strong>
+        </p>
+        <button id="closeModal" class="delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <div class="slideshow-containe">
+          <!-- Full-width images with number and caption text -->
+          <!-- <div class="mySlides"> -->
+            <!-- <div class="numbertext">1 / 3</div>
+            <img src="{% static 'img/background1.jpg' %}" style="width:100%">
+            <div class="text">Caption Text</div> -->
+          <!-- </div> -->
+          <div id="jsondata"></div>
+          <!-- Next and previous buttons -->
+          <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+          <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <br><br>
+
+  <div class="columns is-centered">
+    <div class="column is-half">
+    {% for post_item in post_items %}
+      <div class="card">
+        <div class="card-image">
+          <center>
+          {% if post_item.content.first.file.name|slice:"-4:" == 'apng' or post_item.content.first.file.name|slice:"-4:" == 'aPNG'%}
+          <figure class="image">
+              <a href="{{ post_item.get_absolute_url }}" class="btn">
+                <img src="{{ post_item.content.first.file.url }}" type="image/apng" alt="Placeholder image">
+              </a>
+
+          </figure>
+          {% elif post_item.content.first.file.name|slice:"-4:" == 'avif' or post_item.content.first.file.name|slice:"-4:" == 'aVIF' %}
+          <figure class="image">
+
+              <a href="{{ post_item.get_absolute_url }}" class="btn">
+                <img src="{{ post_item.content.first.file.url }}" type="image/avif" alt="Placeholder image">
+              </a>
+
+          </figure>
+          {% elif post_item.content.first.file.name|slice:"-3:" == 'gif' or post_item.content.first.file.name|slice:"-3:" == 'GIF' %}
+          <figure class="image">
+
+              <a href="{{ post_item.get_absolute_url }}" class="btn">
+                <img src="{{ post_item.content.first.file.url }}" type="image/gif" alt="Placeholder image">
+              </a>
+
+          </figure>
+          {% elif post_item.content.first.file.name|slice:"-3:" == 'jpg' or post_item.content.first.file.name|slice:"-4:" == 'jpeg' or post_item.content.first.file.name|slice:"-4:" == 'jfif' or post_item.content.first.file.name|slice:"-5:" == 'pjpeg' or post_item.content.first.file.name|slice:"-3:" == 'pjp' %}
+          <figure class="image">
+
+              <a href="{{ post_item.get_absolute_url }}" class="btn">
+                <img src="{{ post_item.content.first.file.url }}" type="image/jpeg" alt="Placeholder image">
+              </a>
+
+          </figure>
+          {% elif post_item.content.first.file.name|slice:"-3:" == 'JPG' or post_item.content.first.file.name|slice:"-4:" == 'JPEG' or post_item.content.first.file.name|slice:"-4:" == 'JFIF' or post_item.content.first.file.name|slice:"-5:" == 'pJPEG' or post_item.content.first.file.name|slice:"-3:" == 'pJP' %}
+          <figure class="image">
+
+              <a href="{{ post_item.get_absolute_url }}" class="btn">
+                <img src="{{ post_item.content.first.file.url }}" type="image/jpeg" alt="Placeholder image">
+              </a>
+
+          </figure>
+          {% elif post_item.content.first.file.name|slice:"-3:" == 'png' or post_item.content.first.file.name|slice:"-3:" == 'PNG' %}
+          <figure class="image">
+
+              <a href="{{ post_item.get_absolute_url }}" class="btn">
+                <img src="{{ post_item.content.first.file.url }}" type="image/png" alt="Placeholder image">
+              </a>
+
+          </figure>
+          {% elif post_item.content.first.file.name|slice:"-3:" == 'svg' or post_item.content.first.file.name|slice:"-3:" == 'SVG' %}
+          <figure class="image">
+
+              <a href="{{ post_item.get_absolute_url }}" class="btn">
+                <img src="{{ post_item.content.first.file.url }}" type="image/svg+xml" alt="Placeholder image">
+              </a>
+
+          </figure>
+          {% elif post_item.content.first.file.name|slice:"-4:" == 'webp' or post_item.content.first.file.name|slice:"-4:" == 'WebP' %}
+          <figure class="image">
+
+              <a href="{{ post_item.get_absolute_url }}" class="btn">
+                <img src="{{ post_item.content.first.file.url }}" type="image/webp" alt="Placeholder image">
+              </a>
+
+          </figure>
+          {% elif post_item.content.first.file.name|slice:"-3:" == 'bmp' or post_item.content.first.file.name|slice:"-3:" == 'BMP' %}
+          <figure class="image">
+
+              <a href="{{ post_item.get_absolute_url }}" class="btn">
+                <img src="{{ post_item.content.first.file.url }}" type="image/bmp" alt="Placeholder image">
+              </a>
+
+          </figure>
+          {% elif post_item.content.first.file.name|slice:"-3:" == 'ico' or post_item.content.first.file.name|slice:"-3:" == 'ICO' or post_item.content.first.file.name|slice:"-3:" == 'cur' or post_item.content.first.file.name|slice:"-3:" == 'CUR' %}
+          <figure class="image">
+
+              <a href="{{ post_item.get_absolute_url }}" class="btn">
+                <img src="{{ post_item.content.first.file.url }}" type="image/x-ico" alt="Placeholder image">
+              </a>
+
+          </figure>
+          {% elif post_item.content.first.file.name|slice:"-3:" == 'tif' or post_item.content.first.file.name|slice:"-3:" == 'TIF' or post_item.content.first.file.name|slice:"-4:" == 'tiff' or post_item.content.first.file.name|slice:"-4:" == 'TIFF' %}
+          <figure class="image">
+
+              <a href="{{ post_item.get_absolute_url }}" class="btn">
+                <img src="{{ post_item.content.first.file.url }}" type="image/tiff" alt="Placeholder image">
+              </a>
+
+          </figure>
+          {% elif post_item.content.first.file.name|slice:"-4:" == 'webm' or post_item.content.first.file.name|slice:"-3:" == 'mp4' or post_item.content.first.file.name|slice:"-3:" == 'avi' or post_item.content.first.file.name|slice:"-3:" == 'wmv' or post_item.content.first.file.name|slice:"-3:" == 'swf' or post_item.content.first.file.name|slice:"-3:" == 'flv' or post_item.content.first.file.name|slice:"-3:" == 'ogg' or post_item.content.first.file.name|slice:"-3:" == 'mkv' %}
+            <a href="{{ post_item.get_absolute_url }}" class="btn">
+
+                <video controls="controls" preload="metadata">
+                  <source src="{{ post_item.content.first.file.url }}#t=0.5" type="video/mp4">
+                </video>
+
+            </a>
+          {% elif post_item.content.first.file.name|slice:"-4:" == 'midi' or post_item.content.first.file.name|slice:"-3:" == 'wma' or post_item.content.first.file.name|slice:"-3:" == 'aac' or post_item.content.first.file.name|slice:"-3:" == 'wav' or post_item.content.first.file.name|slice:"-3:" == 'mp3' or post_item.content.first.file.name|slice:"-4:" == 'flac' or post_item.content.first.file.name|slice:"-3:" == 'alac' or post_item.content.first.file.name|slice:"-3:" == 'dsd'%}
+
+                <a href="{{ post_item.get_absolute_url }}" class="btn">
+                  <br><br>
+                  <!-- <figure class="image is-4by3"> -->
+                  <!-- <img src="{% static 'img/default/music_icon.jpg' %}" alt="Placeholder image"> -->
+                  <audio preload="metadata" controls="controls" src="{{ post_item.content.first.file.url }}#t=0.5" type="audio/mp3"></audio>
+                  <br><br><br>
+                </a>
+              <!-- </figure> -->
+
+          {% else %}
+
+              <figure class="image is-128x128">
+              <br>
+                <a href="{{ post_item.get_absolute_url }}" class="btn btn-danger" src="{{ post_item.content.first.file.url }}">
+                  <img src="{% static 'img/default/document_icon.jpg' %}" alt="Placeholder image">
+                  <strong>$Download</strong>
+                </a>
+              </figure>
+            </center>
+          {% endif %}
+        </div>
+        <div class="card-content">
+          <div class="media">
+            <div class="media-left">
+              <figure class="image is-48x48">
+                {% if post_item.user.profile.picture %}
+                  <img class="is-rounded" src="{{ post_item.user.profile.picture.url }}" alt="Placeholder image">
+                {% else %}
+                  <img class="is-rounded" src="{% static 'img/default/default.jpg' %}" alt="Placeholder image">
+                {% endif %}
+              </figure>
+            </div>
+            <div class="media-content">
+              {% if post_item.user.profile.first_name %}
+                <a href="{% url 'profile' post_item.user %}"><p class="title is-4">{{ post_item.user.profile.first_name }} {{ post_item.user.profile.last_name }}</p></a>
+              {% else %}
+                <a href="{% url 'profile' post_item.user %}"><p class="title is-4">{{ post_item.user.username }}</p></a>
+              {% endif %}
+              <a href="{% url 'profile' post_item.user %}"><p class="subtitle is-6">@{{ post_item.user.username }}</p></a>
+              <hr>
+              <div class="content">
+                <p>
+                  {% for tag in post_item.tags.all %}
+                  <a href="{{ tag.get_absolute_url }}">
+                    <strong>{{ tag }}, </strong>
+                  </a>
+                  {% endfor %}
+                </p>
+                <p>
+                  {{ post_item.caption }}
+                </p>
+                <br>
+                <time datetime="2016-1-1">
+                  {{ post_item.posted }}
+                </time>
+              </div>
+            </div>
+
+            <div class="media-right">
+              <a href="{% url 'postlike' post_item.id %}" class="btn">
+                <span style="color:cyan" class="material-icons">ac_unit</span>
+                <p>{{ post_item.likes }} Likes</p>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <br>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

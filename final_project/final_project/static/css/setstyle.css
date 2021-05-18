@@ -1,0 +1,86 @@
+.techfont{
+  /* font-family: 'Russo One', sans-serif; */
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.back{
+    background: #f0efeb;
+}
+
+.postdate{
+  text-align: center;
+}
+
+.posttitle{
+  /* font-family: 'Russo One', sans-serif; */
+  font-size: 2.5em;
+  /* text-align: center; */
+}
+
+.postcontent{
+  /* font-family: 'Montserrat'; */
+  font-size: 1.5em;
+}
+
+.centerstage{
+  margin: auto;
+}
+
+.btn-comment{
+  position: absolute;
+  right: 0px;
+}
+
+.bigbrand{
+  font-size: 2em;
+}
+
+.bar_item{
+  color: black;
+}
+
+
+/*COLOR CHANGER*/
+/*Credit and Source: http://codepen.io/thapliyalshivam/pen/dvgXVO*/
+/* .loader{
+  filter:hue-rotate(0deg);
+  background: linear-gradient(45deg,#0f8,#08f);
+  animation:hue 5000ms infinite linear;
+} */
+
+.loader_1{
+  filter:hue-rotate(0deg);
+  background: linear-gradient(45deg,#08f,#0f8);
+  animation:hue 5000ms infinite linear;
+}
+
+@keyframes spinify {
+  0% {
+    transform: translate(0px,0px);
+
+  }
+  33% {
+    transform: translate(0px,24px);
+    border-radius:100%;
+    width:10px;
+    height:10px;
+
+  }
+   66% {
+    transform:translate(0px,-16px);
+  }
+
+   88% {
+    transform:translate(0px,4px);
+
+  }
+  100% {
+    transform:translate(0px,0px);
+  }
+}
+@keyframes hue{
+  0%{filter: hue-rotate(0deg);}
+  100%{filter:hue-rotate(360deg);}
+
+}

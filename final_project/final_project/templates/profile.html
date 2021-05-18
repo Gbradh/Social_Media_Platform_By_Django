@@ -1,0 +1,221 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+      <article class="media">
+
+        <div class="media-left">
+          <figure class="image is-128x128">
+            {% if profile.picture %}
+              <img class="is-rounded" src="{{ profile.picture.url }}">
+            {% else %}
+              <img class="is-rounded" src="{% static 'img/default/default.jpg' %}">
+            {% endif %}
+          </figure>
+        </div>
+
+        <div class="media-content">
+
+          <div class="content">
+            <h1 style="font-weight: bold;" class="title is-2">
+              {% if profile.first_name %}
+                {{ profile.first_name }} {{ profile.last_name }}
+              {% else %}
+                {{ profile.user }}
+              {% endif %}
+            </h1>
+            <h2 class="subtitle">@{{ profile.user }}</h2>
+            {% if user.is_authenticated and user != profile.user %}
+            <div class="media-right">
+              {% if follow_status == True  %}
+                <a href="{% url 'follow' profile.user 0 %}" class="btn button is-warning">Unsupport</a>
+              {% else %}
+                <a href="{% url 'follow' profile.user 1 %}" class="btn button is-success">Support</a>
+              {% endif %}
+            </div>
+            {% endif %}
+          </div>
+
+          <nav class="level is-mobile ">
+            <div class="level-item has-text-centered">
+              <div>
+                <p class="heading">Feeds</p>
+                <p class="title">{{ posts_count }}</p>
+              </div>
+            </div>
+            <div class="level-item has-text-centered">
+              <div>
+                <p class="heading">Supporting</p>
+                <p class="title">{{ following_count }}</p>
+              </div>
+            </div>
+            <div class="level-item has-text-centered">
+              <div>
+                <p class="heading">Supporters</p>
+                <p class="title">{{ followers_count }}</p>
+              </div>
+            </div>
+          </nav>
+
+          <p class="subtitle is-5">
+            {% if profile.profile_info %}
+              {{ profile.profile_info }}
+            {% endif %}
+          </p>
+          {% if user.is_authenticated and user == profile.user %}
+            <a href="{% url 'edit-profile' %}" class="btn button is-black">
+              <span style="margin-right:5px;" class="material-icons">edit</span>
+              Edit profile
+            </a>
+          {% endif %}
+
+        </div>
+      </article>
+
+
+  <section class="section">
+    <div class="container">
+
+      <div class="tabs is-centered">
+        <ul>
+          <li class="{% if url_name == 'profile' %} is-active{% endif %}">
+            <a href="{% url 'profile' profile.user %}" class="btn">
+              <span class="material-icons">dashboard</span>
+              Posts
+            </a>
+          </li>
+          <li class="{% if url_name == 'profilefavorites' %} is-active{% endif %}">
+            <a href="{% url 'profilefavorites' profile.user %}" class="btn">
+              <span class="material-icons">save_alt</span>
+              Saved
+            </a>
+          </li>
+        </ul>
+      </div>
+
+
+      {% for post in posts %}
+      {% for cont in post.content.all %}
+      <div class="columns is-mobile is-multiline is-centered">
+      <div class="column is-half">
+        <center>
+          {% if cont.file.name|slice:"-4:" == 'apng' or cont.file.name|slice:"-4:" == 'aPNG' %}
+          <figure class="image">
+            <a href="{{ post.get_absolute_url }}">
+              <img src="{{ cont.file.url }}" type="image/apng" alt="Placeholder image">
+            </a>
+          </figure>
+          {% elif cont.file.name|slice:"-4:" == 'avif' or cont.file.name|slice:"-4:" == 'aVIF'%}
+          <figure class="image">
+            <a href="{{ post.get_absolute_url }}">
+              <img src="{{ cont.file.url }}" type="image/avif" alt="Placeholder image">
+            </a>
+          </figure>
+          {% elif cont.file.name|slice:"-3:" == 'gif' or cont.file.name|slice:"-3:" == 'GIF' %}
+          <figure class="image">
+            <a href="{{ post.get_absolute_url }}">
+              <img src="{{ cont.file.url }}" type="image/gif" alt="Placeholder image">
+            </a>
+          </figure>
+          {% elif cont.file.name|slice:"-3:" == 'jpg' or cont.file.name|slice:"-4:" == 'jpeg' or cont.file.name|slice:"-4:" == 'jfif' or cont.file.name|slice:"-5:" == 'pjpeg' or cont.file.name|slice:"-3:" == 'pjp' %}
+          <figure class="image">
+            <a href="{{ post.get_absolute_url }}">
+              <img src="{{ cont.file.url }}" type="image/jpeg" alt="Placeholder image">
+            </a>
+          </figure>
+          {% elif cont.file.name|slice:"-3:" == 'JPG' or cont.file.name|slice:"-4:" == 'JPEG' or cont.file.name|slice:"-4:" == 'JFIF' or cont.file.name|slice:"-5:" == 'pJPEG' or cont.file.name|slice:"-3:" == 'pJP' %}
+          <a href="{{ post.get_absolute_url }}">
+            <img src="{{ cont.file.url }}" type="image/jpeg" alt="Placeholder image">
+          </a>
+          {% elif cont.file.name|slice:"-3:" == 'png' or cont.file.name|slice:"-3:" == 'PNG' %}
+          <figure class="image">
+            <a href="{{ post.get_absolute_url }}">
+              <img src="{{ cont.file.url }}" type="image/png" alt="Placeholder image">
+            </a>
+          </figure>
+          {% elif cont.file.name|slice:"-3:" == 'svg' or cont.file.name|slice:"-3:" == 'SVG' %}
+          <figure class="image">
+            <a href="{{ post.get_absolute_url }}">
+              <img src="{{ cont.file.url }}" type="image/svg+xml" alt="Placeholder image">
+            </a>
+          </figure>
+          {% elif cont.file.name|slice:"-4:" == 'webp' or cont.file.name|slice:"-4:" == 'WebP' %}
+          <figure class="image">
+            <a href="{{ post.get_absolute_url }}">
+              <img src="{{ cont.file.url }}" type="image/webp" alt="Placeholder image">
+            </a>
+          </figure>
+          {% elif cont.file.name|slice:"-3:" == 'bmp' or cont.file.name|slice:"-3:" == 'BMP' %}
+          <figure class="image">
+            <a href="{{ post.get_absolute_url }}">
+              <img src="{{ cont.file.url }}" type="image/bmp" alt="Placeholder image">
+            </a>
+          </figure>
+          {% elif cont.file.name|slice:"-3:" == 'ico' or cont.file.name|slice:"-3:" == 'ICO' or cont.file.name|slice:"-3:" == 'cur' or cont.file.name|slice:"-3:" == 'CUR' %}
+          <figure class="image">
+            <a href="{{ post.get_absolute_url }}">
+              <img src="{{ cont.file.url }}" type="image/x-icon" alt="Placeholder image">
+            </a>
+          </figure>
+          {% elif cont.file.name|slice:"-3:" == 'tif' or cont.file.name|slice:"-3:" == 'TIF' or cont.file.name|slice:"-4:" == 'tiff' or cont.file.name|slice:"-4:" == 'TIFF' %}
+          <figure class="image">
+            <a href="{{ post.get_absolute_url }}">
+              <img src="{{ cont.file.url }}" type="image/webp" alt="Placeholder image">
+            </a>
+          </figure>
+          {% elif cont.file.name|slice:"-4:" == 'webm' or cont.file.name|slice:"-4:" == 'WebM' %}
+          <a href="{{ post.get_absolute_url }}">
+            <video controls="controls" preload="metadata">
+              <source src="{{ cont.file.url }}#t=0.5" type="video/mp4">
+            </video>
+          </a>
+          {% elif cont.file.name|slice:"-3:" == 'mp4' or cont.file.name|slice:"-3:" == 'MP4' %}\
+          <a href="{{ post.get_absolute_url }}">
+            <video controls="controls" preload="metadata">
+              <source src="{{ cont.file.url }}#t=0.5" type="video/mp4">
+            </video>
+          </a>
+          {% elif cont.file.name|slice:"-3:" == 'ogg' or cont.file.name|slice:"-3:" == 'Ogg' %}
+          <a href="{{ post.get_absolute_url }}">
+            <video controls="controls" preload="metadata">
+              <source src="{{ cont.file.url }}#t=0.5" type="video/mp4">
+            </video>
+          </a>
+          {% elif cont.file.name|slice:"-3:" == 'mp3' or cont.file.name|slice:"-3:" == 'MP3' or cont.file.name|slice:"-3:" == 'mpeg' or cont.file.name|slice:"-3:" == 'MpeG' %}
+          <!-- <img src="{% static 'img/default/music_icon.jpg' %}" alt="Placeholder image"> -->
+          <a href="{{ post.get_absolute_url }}">
+            <audio controls="controls" preload="metadata">
+              <source src="{{ cont.file.url }}#t=0.5" type="audio/mpeg">
+            </audio>
+          </a>
+          {% elif cont.file.name|slice:"-4:" == 'wav' or cont.file.name|slice:"-4:" == 'wav' %}
+          <!-- <img src="{% static 'img/default/music_icon.jpg' %}" alt="Placeholder image"> -->
+          <a href="{{ post.get_absolute_url }}">
+            <audio controls="controls" preload="metadata">
+              <source src="{{ cont.file.url }}#t=0.5" type="audio/mpeg">
+            </audio>
+          </a>
+          {% elif cont.file.name|slice:"-4:" == 'ogg' or cont.file.name|slice:"-4:" == 'Ogg' %}
+          <!-- <img src="{% static 'img/default/music_icon.jpg' %}" alt="Placeholder image"> -->
+          <a href="{{ post.get_absolute_url }}">
+            <audio controls="controls" preload="metadata">
+              <source src="{{ cont.file.url }}#t=0.5" type="audio/mpeg">
+            </audio>
+          </a>
+          {% else %}
+          <a href="{{ post.get_absolute_url }}">
+            <audio controls="controls" preload="metadata">
+              <source src="{{ cont.file.url }}#t=0.5" type="audio/mpeg">
+            </audio>
+          </a>
+          {% endif %}
+        </center>
+      </div>
+      </div>
+      {% endfor %}
+      {% empty %}
+      <h3 class="title is-3">You do not have any post!</h3>
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}

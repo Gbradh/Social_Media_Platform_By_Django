@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<div class="columns is-centered">
+  <div class="column is-half">
+    <div class="card">
+      <div class="card-content">
+        <form method="post" enctype="multipart/form-data" action="" role="form">
+          {% csrf_token %}
+          <br>
+          <h3 class="title is-3">Edit Profile</h3>
+          <div class="field">
+            <hr>
+            <div class="card-content">
+              <center>
+              <figure class="image is-128x128">
+                {% if user.profile.picture %}
+                  <img  src="{{ user.profile.picture.url }}" alt="Placeholder image">
+                {% else %}
+                  <img  src="{% static 'img/default/default.jpg' %}" alt="Placeholder image">
+                {% endif %}
+                {{ form.picture }}
+              </figure>
+            </center>
+            </div>
+
+          </div>
+
+          <div class="field">
+              <label style="float:left;" class="label">First name</label>
+              <div class="control">
+                {{ form.first_name }}
+              </div>
+          </div>
+
+          <div class="field">
+              <label style="float:left;" class="label">Last name</label>
+              <div class="control">
+                {{ form.last_name }}
+              </div>
+          </div>
+
+          <div class="field">
+              <label style="float:left;" class="label">Location</label>
+              <div class="control">
+                {{ form.location }}
+              </div>
+          </div>
+
+          <div class="field">
+              <label style="float:left;" class="label">url</label>
+              <div class="control">
+                {{ form.url }}
+              </div>
+          </div>
+
+          <div class="field">
+              <label style="float:left;" class="label">BIO</label>
+              <div class="control">
+                {{ form.profile_info }}
+              </div>
+          </div>
+
+          <div class="row">
+            <div class="col s12">
+              <span style="color: red; font-weight: bold;">{{ form.errors }}</span>
+            </div>
+          </div>
+          <br>
+          <!-- <center> -->
+            <div class="field">
+              <p class="control">
+                <button type="submit" value="login" class="btn button is-success">
+                  <span style="margin-right:5px;" class="material-icons">update</span>
+                  Update
+                </button>
+                <a style="float:right;" href="{% url 'index' %}" class="btn button is-danger">
+                  <span style="margin-right:5px;" class="material-icons">close</span>
+                  Cancel
+                </a>
+              </p>
+              <br>
+            </div>
+          <!-- </center> -->
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

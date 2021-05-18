@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="container">
+    <h1 class="title is-1">Welcome to My Project!</h1>
+    <p></p>
+    <a href="{% url 'index' %}" class="btn button is-success is-medium" role="button">
+      <strong><span style="font-weight:bold; margin-right:5px;" class="material-icons">trending_up</span></strong>
+       Let's get Started!
+     </a>
+     <br><br><br>
+     <p class="title is-3">About</p>
+     <p>Social media are interactive technologies that allow the creation or sharing/exchange of information, ideas,
+       career interests, and other forms of expression via virtual communities and networks.
+       While challenges to the definition of social media arise due to the broad variety of stand-alone and built-in social-media services
+       currently available, there are some common features:
+       <div class="container-fluid">
+         <br>
+         <ol>
+           <li>
+             Social media are interactive Web 2.0 Internet-based applications.
+           </li>
+           <li>
+             User-generated content—such as text posts or comments, digital photos or videos,
+             and data generated through all online interactions—is the lifeblood of social media.
+           </li>
+           <li>
+             Users create service-specific profiles for the website or app that are designed and
+             maintained by the social-media organization.
+           </li>
+          <li>
+            Social media helps the development of online social networks by connecting a user's
+            profile with those of other individuals or groups
+          </li>
+         </ol>
+       </div>
+
+     </p>
+  </div>
+  <br><br><br>
+  <br><br><br>
+  <br><br><br>
+{% endblock %}

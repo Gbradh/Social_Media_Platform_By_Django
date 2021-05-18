@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br><br>
+<div class="columns is-centered">
+  <div class="column is-half">
+    <div class="card">
+      <div class="card-content">
+				<h4 class="title is-3">Contact</h4><hr>
+        <p><strong>Creator:</strong> Mr. Gurbaksh Lal</p>
+        <p><strong>Email:</strong> supportpacific@gmail.com, pacificcontact@gmail.com</p>
+        <p><strong>Contact:</strong> 1800 675 456, 1890 999 653</p>
+        <p><strong>Location:</strong> India</p>
+        <br>
+        <a style=" float:left; margin:0px 10px 10px 0px;" href="{% url 'index' %}" class="btn button is-success">
+          <span class="material-icons">keyboard_return</span>
+          Return
+        </a>
+				<a style=" float:right; margin:0px 10px 10px 0px;" href="{% url 'start' %}" class="btn button is-info">
+					<span class="material-icons">info</span>
+					About
+        </a>
+			</div><br>
+      <br><br>
+		</div>
+	</div>
+</div>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+{% endblock %}

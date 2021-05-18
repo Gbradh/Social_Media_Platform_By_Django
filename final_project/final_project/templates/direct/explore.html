@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+ <div class="columns is-mobile">
+  <div class="column is-offset-one-fourth">
+    <h1 class="title is-3">
+      Explore Users
+    </h1>
+    <!-- <div class="field has-addons"> -->
+      <form>
+        <div class="control">
+          <input class="input" name="q" type="text" placeholder="Search users..." value="{{ request.GET.q }}">
+        </div>
+        <br>
+        <div class="control">
+          <button style="float: left;" type="submit" class="button is-success">
+            <span style="margin-right:5px;" class="material-icons">person_search</span>
+            Search
+          </button>
+          <a style="float: right;" href="{% url 'index' %}" class="btn button is-danger">
+            <span style="margin-right:5px;" class="material-icons">close</span>
+            Cancel
+          </a>
+        </div>
+      </form>
+    <!-- </div> -->
+  </div>
+</div>
+<div class="column">
+{% for user in users %}
+  <div class="box">
+    <article class="media">
+      <div class="media-left">
+        <figure class="image is-64x64">
+            {% if user.profile.picture %}
+              <img src="{{ user.profile.picture.url }}" alt="Placeholder image">
+            {% else %}
+              <img src="{% static 'img/default/default.jpg' %}" alt="Placeholder image">
+            {% endif %}
+        </figure>
+      </div>
+      <div class="media-content">
+        <div class="content">
+          <h3>
+            {% if user.profile.first_name %}
+            <strong>{{ user.profile.first_name }} {{ user.profile.last_name }}</strong><br><small>@{{ user.username }}</small>
+            {% else %}
+            <strong>@{{ user.username }}</strong>
+            {% endif %}
+          </h3>
+          <p>
+            {% if user.profile.profile_info %}
+              {{ user.profile.profile_info }}
+            {% endif %}
+          </p>
+          <a href="{% url 'profile' user.username %}" style="margin-right:5px;" class="btn button is-dark">Profile</a>
+          <a href="{% url 'newconversation' user.username %}" class="btn button is-primary">Chat</a>
+        </div>
+      </div>
+    </article>
+  </div>
+{% endfor %}
+</div>
+{% endblock %}

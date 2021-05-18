@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<br>
+<div class="columns is-centered">
+  <div class="column is-half">
+    <div class="card">
+      <div class="card-content">
+        <form method="post" action="" enctype="multipart/form-data" role="form">
+          {% csrf_token %}
+          <h3 style="float:left;" class="title is-3">About Your Day!</h3>
+
+          <div class="field">
+            <p class="control has-icons-left">
+              <hr>
+              <label style="float:left;" class="label">Choose your media</label>
+              <br>
+              <center>
+                {{ form.content }}
+              </center>
+              <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+              </span>
+            </p>
+          </div>
+
+          <div class="field">
+            <p class="control has-icons-left">
+              <label style="float:left;" class="label">Caption Details</label>
+              {{ form.caption }}
+              <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+              </span>
+            </p>
+          </div>
+          <br>
+          <div class="field">
+            <p class="control">
+              <button style="float:left;" style="margin-right:5px;" type="submit" name="action" class="button is-success">
+                <span style="margin-right:5px;" class="material-icons">create</span>
+                Create
+              </button>
+              <a style="float:right;" href="{% url 'index' %}" class="btn button is-danger">
+                <span style="margin-right:5px;" class="material-icons">close</span>
+                Cancel
+              </a>
+            </p>
+          </div>
+          <br><br><br>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<br><br><br><br><br>
+{% endblock %}
